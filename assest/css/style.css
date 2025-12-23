@@ -24,23 +24,60 @@ header {
     height: 100px;
     background-color: #333;
     color: white;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-right: 200px; 
 }
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+  display: none;
+  z-index: 900;
+}
+
+/* عند الفتح */
+.overlay.show {
+  display: block;
+}
+
 header h1 {
     line-height: 100px;
     font-size: 2em;
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+/* زر القائمة */
+.menu-toggle {
+  all: unset;
+  font-size: 20px;
+  cursor: pointer;
+  color: #fff;
+  display: none;
 }
 /* Header styles */
 
 /* Sidebar styles */
 nav.sidebar {
     width: 200px;
-    float: right;
-    background-color: #444;
+    background-color: #222;
     height: 100vh;
     position: fixed;
     top: 0;
     right: 0;
+    transform: none;
+    transition: .3s ease;
+    z-index: 1000;
+}
+nav.sidebar.open {
+  transform: translateX(0);
 }
 nav.sidebar .logo {
     text-align: center;
@@ -51,6 +88,7 @@ nav.sidebar .logo {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 10px;
 }
 .sidebar ul {
     padding: 0;
@@ -58,16 +96,30 @@ nav.sidebar .logo {
 }
 .sidebar ul li {
     list-style: none;
-}
-.sidebar ul li a {
-    text-decoration: none;
-    color: #ffffff;
-    display: block;
-    padding: 10px;
     border-bottom: 1px solid #555;
 }
-.sidebar ul li a:hover {
-    background-color: #555;
+.sidebar ul li button {
+    width: 100%;
+    background-color: #222;
+    border: none;
+    text-align: right;
+    color: #ffffff;
+    padding: 10px 20px 10px 10px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+.sidebar ul li button:hover,
+.sidebar ul li button:active {
+    background-color: #dbd7d7;
+}
+.sidebar ul li button i {
+    margin-left: 10px;
+}
+.page {
+    display: none;
+    }
+    .page.active {
+    display: block;
 }
 /* Sidebar styles */
 /* Main content styles */
@@ -75,3 +127,48 @@ main.content {
     margin-right: 200px; 
     padding: 10px;
 }
+
+/* Main content styles */
+.content {
+    margin-right: 0;
+}
+/* Main content styles */
+
+/* ===================== */
+/* 📱 Mobile Responsive */
+/* ===================== */
+@media (max-width: 768px) {
+
+  header {
+    margin-right: 0;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+  .sidebar {
+    transform: translateX(100%);
+    }
+
+  nav.sidebar {
+    transform: translateX(100%);
+    transition: 0.3s ease;
+    z-index: 1000;
+    }
+
+  nav.sidebar.open {
+    transform: translateX(0);
+    }
+
+  main.content {
+    margin-right: 0;
+     }
+  .page {
+    display: none;
+    }
+    .page.active {
+    display: block;
+    }
+}
+/* 📱 Mobile Responsive */
+

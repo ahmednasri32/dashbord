@@ -15,9 +15,17 @@
     <link rel="stylesheet" href="assest/css/normalize.css">
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="assest/css/style.css">
+    <!-- Libraries font awesome -->
+    <link rel="stylesheet" href="assest/css/all.min.css">
 </head>
 <body>
      <header>
+        <div class="overlay"></div>
+        <div class="container header-inner">
+            <button id="menuToggle" class="menu-toggle">
+            <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
         <div class="container">
             <h1>لوحة إدارة</h1>
         </div>
@@ -28,20 +36,87 @@
             <h2>Dashbord</h2>
         </div>
         <ul>
-            <li><a href="#">الرئيسية</a></li>
-            <li><a href="#">الطلبات</a></li>
-            <li><a href="#">السائقين</a></li>
-            <li><a href="#">المركبات</a></li>
-            <li><a href="#">التقارير</a></li>
+            <li><button data-page="tools"><i class="fa-solid fa-gear"></i> tools</button></li>
+            <li><button data-page="orders"><i class="fa-solid fa-box"></i> orders</button></li>
+            <li><button data-page="drivers"><i class="fa-solid fa-user-tie"></i> drivers</button></li>
+            <li><button data-page="vehicles"><i class="fa-solid fa-car"></i> vehicles</button></li>
+            <li><button data-page="reports"><i class="fa-solid fa-chart-bar"></i> reports</button></li>
         </ul>
     </nav>
 
     <main class="content">
         <div class="container">
-            <h2>مرحبًا بك!</h2>
-            <p>استخدم القائمة الجانبية للتنقل بين الأقسام.</p>
+            <section id="tools" class="page active">
+                <h2>Tools Page</h2>
+                <p>محتوى صفحة الأدوات.</p>
+            </section>
+
+            <section id="orders" class="page" >
+                <h2>Orders Page</h2>
+                <p>محتوى صفحة الطلبات.</p>
+            </section>
+
+            <section id="drivers" class="page">
+                <h2>Drivers Page</h2>
+                <p>محتوى صفحة السائقين.</p>
+            </section>
+
+            <section id="vehicles" class="page">
+                <h2>Vehicles Page</h2>
+                <p>محتوى صفحة المركبات.</p>
+            </section>
+
+            <section id="reports" class="page">
+                <h2>Reports Page</h2>
+                <p>محتوى صفحة التقارير.</p>
+            </section>
         </div>
     </main>
+
+
+    <script>
+    const buttons = document.querySelectorAll('.sidebar button');
+    const pages = document.querySelectorAll('.page');
+
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+        const pageId = btn.dataset.page;
+
+        // reset
+        buttons.forEach(b => b.classList.remove('active'));
+        pages.forEach(p => p.classList.remove('active'));
+
+        // activate
+        btn.classList.add('active');
+        document.getElementById(pageId).classList.add('active');
+        });
+    });
+    </script>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.querySelector('.sidebar');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+        buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+        sidebar.classList.remove('open');
+        });
+    });
+    </script>
+
+    <script>
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('show');
+            }
+    }); 
+    </script>
+
+
 
 </body>
 </html>
