@@ -20,7 +20,6 @@
 </head>
 <body>
      <header>
-        <div class="overlay"></div>
         <div class="container header-inner">
             <button id="menuToggle" class="menu-toggle">
             <i class="fa-solid fa-bars"></i>
@@ -30,6 +29,8 @@
             <h1>لوحة إدارة</h1>
         </div>
     </header>
+
+    <div class="overlay"></div>
 
     <nav class="sidebar">
         <div class="logo">
@@ -73,48 +74,52 @@
         </div>
     </main>
 
+<script>
+const buttons = document.querySelectorAll('.sidebar button');
+const pages = document.querySelectorAll('.page');
+const menuToggle = document.getElementById('menuToggle');
+const sidebar = document.querySelector('.sidebar');
+const overlay = document.querySelector('.overlay');
 
-    <script>
-    const buttons = document.querySelectorAll('.sidebar button');
-    const pages = document.querySelectorAll('.page');
-
-    buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
+// --- التحكم بالصفحات (يمكنك تعطيلها إذا تريد جميع الصفحات تظهر)
+buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
         const pageId = btn.dataset.page;
 
-        // reset
+        // إزالة كل الـ active
         buttons.forEach(b => b.classList.remove('active'));
         pages.forEach(p => p.classList.remove('active'));
 
-        // activate
+        // إضافة الـ active للزر والصفحة
         btn.classList.add('active');
         document.getElementById(pageId).classList.add('active');
-        });
-    });
-    </script>
 
-    <script>
-        const menuToggle = document.getElementById('menuToggle');
-        const sidebar = document.querySelector('.sidebar');
-
-        menuToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('open');
-        });
-        buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
+        // إغلاق السايدبار على الموبايل بعد اختيار صفحة
         sidebar.classList.remove('open');
-        });
+        overlay.classList.remove('show');
     });
-    </script>
+});
 
-    <script>
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-            sidebar.classList.remove('open');
-            overlay.classList.remove('show');
-            }
-    }); 
-    </script>
+// --- التحكم بالسايدبار والـ overlay
+menuToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('show');
+});
+
+// عند النقر على overlay يتم غلق القائمة
+overlay.addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+});
+
+// --- إزالة فتح السايدبار تلقائياً عند تكبير الشاشة
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('show');
+    }
+});
+</script>
 
 
 
